@@ -100,18 +100,20 @@ namespace StudyAid
             if(SW.IsRunning)
             {
                 TimeSpan ts  = SW.Elapsed;
-                // progress 진행(1초 간격)
-                StudyProgress.PerformStep();
 
                 // 시간 표시
                 string TotalTime = String.Format("{0:00}:{1:00}:{2:00}", ts.Hours, ts.Minutes, ts.Seconds);
                 this.StudyTime.Text = TotalTime;
-               
+
+                // progress 진행(1초 간격)
+                StudyProgress.PerformStep();
+
                 // 시간 다됬을 때
-                if(ts.Hours == StudyTimeValue.MaxHours && ts.Minutes == StudyTimeValue.MaxMinuits && ts.Seconds == StudyTimeValue.MaxSeconds)
+                if (ts.Hours == StudyTimeValue.MaxHours && ts.Minutes == StudyTimeValue.MaxMinuits && ts.Seconds == StudyTimeValue.MaxSeconds)
                 {
-                    MessageBox.Show("목표 공부시간 끝~ 수고수고");
                     SW.Stop();
+                    UpdateStudyTime(StudyTimeValue.SelectedSubject);
+                    MessageBox.Show("목표 공부시간 끝~ 수고수고");
                 }
             }
         }
@@ -147,6 +149,7 @@ namespace StudyAid
 
         private void 시작ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            CheckInstanceStudyManager();
             SettingTime st = new SettingTime() ;
             if(st.ShowDialog() == DialogResult.OK)
             {
@@ -163,55 +166,36 @@ namespace StudyAid
 
                 // StopWatch 시작
                 SW.Reset();
+                StudyProgress.Value = 0;
                 SW.Start();
             }
         }
 
         private void 멈춤ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SW.Stop();
-        }
-
-        private void 총공부시간ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            Smanager = new StudyManager(blog.blogUrl, blog.blogid, blog.id, blog.pw, blog.postid);
-            MessageBox.Show(Smanager.GetTimeFromPost());
-        }
-
-        private void toolStripSplitButton1_ButtonClick(object sender, EventArgs e)
-        {
-            string configPath = Environment.CurrentDirectory + "\\config.xml";
-            XElement config = null;
-            if (!File.Exists(configPath))
+        { 
+            if(SW.IsRunning)
             {
-                RegisterBlog rb = new RegisterBlog();
-                if(rb.ShowDialog() == DialogResult.OK)
-                {
-                    blog.blogid = rb.v_blogid;
-                    blog.blogUrl = rb.v_blogurl;
-                    blog.id = rb.v_id;
-                    blog.pw = rb.v_pw;
-                    blog.postid = rb.v_postid;
-
-                    config = new XElement("config", new XElement("id", rb.v_id), new XElement("pw",rb.v_pw),
-                        new XElement("blogid",rb.v_blogid),new XElement("blogurl",rb.v_blogurl),
-                        new XElement("postid",rb.v_postid));
-
-                    config.Save(configPath);
-                    MessageBox.Show("블로그 계정등록 성공");
-                }
-                else
-                {
-                    return;
-                }
+                SW.Stop();
+                UpdateStudyTime(StudyTimeValue.SelectedSubject);
             }
-            config = XElement.Load(configPath);
-            blog.blogid = config.Element("blogid").Value;
-            blog.blogUrl = config.Element("blogurl").Value;
-            blog.id = config.Element("id").Value;
-            blog.pw = config.Element("pw").Value;
-            blog.postid = config.Element("postid").Value;
+        }
+
+        /// <summary>
+        /// 지금까지 공부한 StudyTime 업데이트
+        /// </summary>
+        /// <param name="_name">업데이트할 study name</param>
+        private void UpdateStudyTime(string _name)
+        {
+            TimeSpan ts = SW.Elapsed;
+            Study tmp = Smanager.FindStudy(_name);
+            if(tmp != null)
+            {
+                int TmpHour = Convert.ToInt32(tmp.hours)+ts.Hours;
+                int TmpMinuit = Convert.ToInt32(tmp.minuits) + ts.Minutes;
+                int TmpSeconds = Convert.ToInt32(tmp.seconds) + ts.Seconds;
+
+                Smanager.SubjectUpdate(_name, Convert.ToString(TmpHour), Convert.ToString(TmpMinuit), Convert.ToString(TmpSeconds));
+            }
         }
 
         private void 일시정지시작ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -230,13 +214,67 @@ namespace StudyAid
 
         private void study설정ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string configPath = Environment.CurrentDirectory + "\\StudyConfig.xml";
-            if(!File.Exists(configPath))
-            {
-
-            }
+            CheckInstanceStudyManager();
+            StudyListForm st = new StudyListForm();
+            st.Show();
         }
 
-    
+        private void LoadBlogInfo()
+        {
+            string configPath = Environment.CurrentDirectory + "\\config.xml";
+            XElement config = null;
+            if (!File.Exists(configPath))
+            {
+                RegisterBlog rb = new RegisterBlog();
+                if (rb.ShowDialog() == DialogResult.OK)
+                {
+                    blog.blogid = rb.v_blogid;
+                    blog.blogUrl = rb.v_blogurl;
+                    blog.id = rb.v_id;
+                    blog.pw = rb.v_pw;
+                    blog.postid = rb.v_postid;
+
+                    config = new XElement("config", new XElement("id", rb.v_id), new XElement("pw", rb.v_pw),
+                        new XElement("blogid", rb.v_blogid), new XElement("blogurl", rb.v_blogurl),
+                        new XElement("postid", rb.v_postid));
+
+                    config.Save(configPath);
+                    MessageBox.Show("블로그 계정등록 성공");
+                }
+                else
+                {
+                    return;
+                }
+            }
+            config = XElement.Load(configPath);
+            blog.blogid = config.Element("blogid").Value;
+            blog.blogUrl = config.Element("blogurl").Value;
+            blog.id = config.Element("id").Value;
+            blog.pw = config.Element("pw").Value;
+            blog.postid = config.Element("postid").Value;
+        }
+
+        private void CheckInstanceStudyManager()
+        {
+            if (SingleTon.StudyManagerInstance() == null)
+            {
+                LoadBlogInfo();
+            }
+            Smanager = SingleTon.StudyManagerInstance(blog.blogUrl, blog.blogid, blog.id, blog.pw, blog.postid);
+        }
+
+        private void 불러오기ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CheckInstanceStudyManager();
+            Smanager.GetXmlFromPost();
+            MessageBox.Show("불러오기 성공");
+        }
+
+        private void 보내기ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CheckInstanceStudyManager();
+            Smanager.SaveXmlToPost();
+            MessageBox.Show("포스팅(저장) 성공");
+        }
     }
 }

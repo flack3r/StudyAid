@@ -52,6 +52,8 @@ namespace StudyAid
             this.공부설정 = new System.Windows.Forms.ToolStripMenuItem();
             this.study설정ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.업데이트ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.불러오기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.보내기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.시간설정 = new System.Windows.Forms.ToolStripMenuItem();
             this.시작ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.멈춤ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,8 +61,6 @@ namespace StudyAid
             this.StudyProgress = new System.Windows.Forms.ToolStripProgressBar();
             this.StudyTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.MainBackground = new System.Windows.Forms.PictureBox();
-            this.불러오기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.보내기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.trayButton.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -210,7 +210,6 @@ namespace StudyAid
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
             this.toolStripSplitButton1.Size = new System.Drawing.Size(32, 20);
             this.toolStripSplitButton1.Text = "toolStripSplitButton1";
-            this.toolStripSplitButton1.ButtonClick += new System.EventHandler(this.toolStripSplitButton1_ButtonClick);
             // 
             // 공부설정
             // 
@@ -220,6 +219,7 @@ namespace StudyAid
             this.공부설정.Name = "공부설정";
             this.공부설정.Size = new System.Drawing.Size(152, 22);
             this.공부설정.Text = "공부설정";
+            
             // 
             // study설정ToolStripMenuItem
             // 
@@ -237,6 +237,20 @@ namespace StudyAid
             this.업데이트ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.업데이트ToolStripMenuItem.Text = "연동하기";
             // 
+            // 불러오기ToolStripMenuItem
+            // 
+            this.불러오기ToolStripMenuItem.Name = "불러오기ToolStripMenuItem";
+            this.불러오기ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.불러오기ToolStripMenuItem.Text = "불러오기";
+            this.불러오기ToolStripMenuItem.Click += new System.EventHandler(this.불러오기ToolStripMenuItem_Click);
+            // 
+            // 보내기ToolStripMenuItem
+            // 
+            this.보내기ToolStripMenuItem.Name = "보내기ToolStripMenuItem";
+            this.보내기ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.보내기ToolStripMenuItem.Text = "보내기";
+            this.보내기ToolStripMenuItem.Click += new System.EventHandler(this.보내기ToolStripMenuItem_Click);
+            // 
             // 시간설정
             // 
             this.시간설정.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -246,6 +260,7 @@ namespace StudyAid
             this.시간설정.Name = "시간설정";
             this.시간설정.Size = new System.Drawing.Size(152, 22);
             this.시간설정.Text = "시간설정";
+            
             // 
             // 시작ToolStripMenuItem
             // 
@@ -292,18 +307,6 @@ namespace StudyAid
             this.MainBackground.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.MainBackground.TabIndex = 5;
             this.MainBackground.TabStop = false;
-            // 
-            // 불러오기ToolStripMenuItem
-            // 
-            this.불러오기ToolStripMenuItem.Name = "불러오기ToolStripMenuItem";
-            this.불러오기ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.불러오기ToolStripMenuItem.Text = "불러오기";
-            // 
-            // 보내기ToolStripMenuItem
-            // 
-            this.보내기ToolStripMenuItem.Name = "보내기ToolStripMenuItem";
-            this.보내기ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.보내기ToolStripMenuItem.Text = "보내기";
             // 
             // Main
             // 

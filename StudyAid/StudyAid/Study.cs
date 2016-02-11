@@ -1,20 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace StudyAid
 {
-    public partial class Study : Form
+    class Study
     {
-        public Study()
+        public string StudyName { get; set; }
+        public string hours { get; set; }
+        public string minuits { get; set; }
+        public string seconds { get; set; }
+
+        public Study(string _name, string _hours, string _minuits, string _seconds)
         {
-            InitializeComponent();
+            StudyName = _name;
+            hours = _hours;
+            minuits = _minuits;
+            seconds = _seconds;
         }
     }
 }

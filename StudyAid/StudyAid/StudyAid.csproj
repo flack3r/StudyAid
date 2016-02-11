@@ -78,11 +78,13 @@
     <Compile Include="SettingTime.Designer.cs">
       <DependentUpon>SettingTime.cs</DependentUpon>
     </Compile>
-    <Compile Include="Study.cs">
+    <Compile Include="SingleTon.cs" />
+    <Compile Include="Study.cs" />
+    <Compile Include="StudyListForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Study.Designer.cs">
-      <DependentUpon>Study.cs</DependentUpon>
+    <Compile Include="StudyListForm.Designer.cs">
+      <DependentUpon>StudyListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="StudyManager.cs" />
     <EmbeddedResource Include="Diary.resx">
@@ -110,8 +112,8 @@
     <EmbeddedResource Include="SettingTime.resx">
       <DependentUpon>SettingTime.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Study.resx">
-      <DependentUpon>Study.cs</DependentUpon>
+    <EmbeddedResource Include="StudyListForm.resx">
+      <DependentUpon>StudyListForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -143,6 +145,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icon1.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

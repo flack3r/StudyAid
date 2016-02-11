@@ -25,8 +25,11 @@ namespace StudyAid
 
         private void SettingTime_Load(object sender, EventArgs s)
         {
-            string[] data = { "사과", "토마토", "포도", "배", "복숭아" };
-            this.StudyList.Items.AddRange(data);
+            StudyManager sm = SingleTon.StudyManagerInstance();
+            foreach(Study tmp in sm.GetStudyList())
+            {
+                this.StudyList.Items.Add(tmp.StudyName);
+            }
         }
 
         private void Ok_Click(object sender, EventArgs e)
@@ -34,7 +37,7 @@ namespace StudyAid
             this.MaxHours = Decimal.ToInt32(this.SettingHour.Value);
             this.MaxMinuits = Decimal.ToInt32(this.SettingMinuits.Value);
             this.MaxSeconds = Decimal.ToInt32(this.SettingSeconds.Value);
-            this.SelectSubject = this.StudyList.SelectedText;
+            this.SelectSubject = this.StudyList.SelectedItem.ToString();
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
