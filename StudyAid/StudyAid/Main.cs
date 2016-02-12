@@ -276,5 +276,11 @@ namespace StudyAid
             Smanager.SaveXmlToPost();
             MessageBox.Show("포스팅(저장) 성공");
         }
+
+        private void settingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MonitorForm mf = new MonitorForm();
+            mf.Show();
+        }
     }
 }

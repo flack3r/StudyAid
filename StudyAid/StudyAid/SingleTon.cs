@@ -9,9 +9,19 @@ namespace StudyAid
     class SingleTon
     {
         private static StudyManager SM;
+        private static MonitorManager MonitorM;
         protected SingleTon()
         {
 
+        }
+
+        public static MonitorManager MonitorManagerInstance()
+        {
+            if(MonitorM == null)
+            {
+                MonitorM = new MonitorManager();
+            }
+            return MonitorM;
         }
 
         public static StudyManager StudyManagerInstance(string _url,string _blogid, string _id, string _pw, string _postid)

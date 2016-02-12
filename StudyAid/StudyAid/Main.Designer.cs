@@ -108,19 +108,20 @@ namespace StudyAid
             this.monitorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingToolStripMenuItem});
             this.monitorToolStripMenuItem.Name = "monitorToolStripMenuItem";
-            this.monitorToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.monitorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.monitorToolStripMenuItem.Text = "Monitor";
             // 
             // settingToolStripMenuItem
             // 
             this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
-            this.settingToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.settingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.settingToolStripMenuItem.Text = "Setting";
+            this.settingToolStripMenuItem.Click += new System.EventHandler(this.settingToolStripMenuItem_Click);
             // 
             // diaryToolStripMenuItem
             // 
             this.diaryToolStripMenuItem.Name = "diaryToolStripMenuItem";
-            this.diaryToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.diaryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.diaryToolStripMenuItem.Text = "Diary";
             this.diaryToolStripMenuItem.Click += new System.EventHandler(this.diaryToolStripMenuItem_Click);
             // 
@@ -217,14 +218,13 @@ namespace StudyAid
             this.study설정ToolStripMenuItem,
             this.업데이트ToolStripMenuItem});
             this.공부설정.Name = "공부설정";
-            this.공부설정.Size = new System.Drawing.Size(152, 22);
+            this.공부설정.Size = new System.Drawing.Size(122, 22);
             this.공부설정.Text = "공부설정";
-            
             // 
             // study설정ToolStripMenuItem
             // 
             this.study설정ToolStripMenuItem.Name = "study설정ToolStripMenuItem";
-            this.study설정ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.study설정ToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.study설정ToolStripMenuItem.Text = "Study설정";
             this.study설정ToolStripMenuItem.Click += new System.EventHandler(this.study설정ToolStripMenuItem_Click);
             // 
@@ -234,20 +234,20 @@ namespace StudyAid
             this.불러오기ToolStripMenuItem,
             this.보내기ToolStripMenuItem});
             this.업데이트ToolStripMenuItem.Name = "업데이트ToolStripMenuItem";
-            this.업데이트ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.업데이트ToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.업데이트ToolStripMenuItem.Text = "연동하기";
             // 
             // 불러오기ToolStripMenuItem
             // 
             this.불러오기ToolStripMenuItem.Name = "불러오기ToolStripMenuItem";
-            this.불러오기ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.불러오기ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.불러오기ToolStripMenuItem.Text = "불러오기";
             this.불러오기ToolStripMenuItem.Click += new System.EventHandler(this.불러오기ToolStripMenuItem_Click);
             // 
             // 보내기ToolStripMenuItem
             // 
             this.보내기ToolStripMenuItem.Name = "보내기ToolStripMenuItem";
-            this.보내기ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.보내기ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.보내기ToolStripMenuItem.Text = "보내기";
             this.보내기ToolStripMenuItem.Click += new System.EventHandler(this.보내기ToolStripMenuItem_Click);
             // 
@@ -258,28 +258,27 @@ namespace StudyAid
             this.멈춤ToolStripMenuItem,
             this.일시정지시작ToolStripMenuItem});
             this.시간설정.Name = "시간설정";
-            this.시간설정.Size = new System.Drawing.Size(152, 22);
+            this.시간설정.Size = new System.Drawing.Size(122, 22);
             this.시간설정.Text = "시간설정";
-            
             // 
             // 시작ToolStripMenuItem
             // 
             this.시작ToolStripMenuItem.Name = "시작ToolStripMenuItem";
-            this.시작ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.시작ToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.시작ToolStripMenuItem.Text = "시작";
             this.시작ToolStripMenuItem.Click += new System.EventHandler(this.시작ToolStripMenuItem_Click);
             // 
             // 멈춤ToolStripMenuItem
             // 
             this.멈춤ToolStripMenuItem.Name = "멈춤ToolStripMenuItem";
-            this.멈춤ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.멈춤ToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.멈춤ToolStripMenuItem.Text = "종료";
             this.멈춤ToolStripMenuItem.Click += new System.EventHandler(this.멈춤ToolStripMenuItem_Click);
             // 
             // 일시정지시작ToolStripMenuItem
             // 
             this.일시정지시작ToolStripMenuItem.Name = "일시정지시작ToolStripMenuItem";
-            this.일시정지시작ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.일시정지시작ToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.일시정지시작ToolStripMenuItem.Text = "일시정지/시작";
             this.일시정지시작ToolStripMenuItem.Click += new System.EventHandler(this.일시정지시작ToolStripMenuItem_Click);
             // 

@@ -10,32 +10,31 @@ using System.Windows.Forms;
 
 namespace StudyAid
 {
-    public partial class StudyListForm : Form
+    public partial class MonitorForm : Form
     {
-        StudyManager StudyManager;
-        public StudyListForm()
+        public MonitorForm()
         {
             InitializeComponent();
+        }
+
+        private void MonitorForm_Load(object sender, EventArgs e)
+        {
             UpdateListView();
         }
 
         private void UpdateListView()
         {
+            MonitorManager mm = SingleTon.MonitorManagerInstance();
             this.listView1.BeginUpdate();
             listView1.Clear();
             this.listView1.View = View.Details;
-            this.listView1.Columns.Add("StudyName", 100, HorizontalAlignment.Left);
-            this.listView1.Columns.Add("AllTime", 80, HorizontalAlignment.Left);
+            this.listView1.Columns.Add("금지된 Url", 150, HorizontalAlignment.Left);
 
-            StudyManager = SingleTon.StudyManagerInstance();
-            List<Study> sl = StudyManager.GetStudyList();
+            List<string> urllist = mm.GetUrlList();
 
-            foreach (Study tmp in sl)
+            foreach (string tmp in urllist)
             {
-                ListViewItem lvi = new ListViewItem(tmp.StudyName);
-                string TotalTime = String.Format("{0:00}:{1:00}:{2:00}", tmp.hours, tmp.minuits, tmp.seconds);
-                lvi.SubItems.Add(TotalTime);
-
+                ListViewItem lvi = new ListViewItem(tmp);
                 listView1.Items.Add(lvi);
 
             }
@@ -44,36 +43,36 @@ namespace StudyAid
 
         private void Add_Click(object sender, EventArgs e)
         {
-            string _StudyName = "";
-            if (InputBox("Register StudyName", "등록할 StudyName을 입력하세요", ref _StudyName) == DialogResult.OK)
+            string tmp = "";
+            if(InputBox("AddUrl","금지시킬 url을 입력하세요",ref tmp) == DialogResult.OK)
             {
-                if (StudyManager.FindStudy(_StudyName) == null)
+                if(System.Text.RegularExpressions.Regex.IsMatch(tmp,"^http://.*/|^https://.*/"))
                 {
-                    StudyManager.SubjectUpdate(_StudyName, "0", "0", "0");
-                    UpdateListView();
-                    MessageBox.Show("등록완료");
+                    MonitorManager mm = SingleTon.MonitorManagerInstance();
+                    mm.AddUrl(tmp);
                 }
                 else
                 {
-                    MessageBox.Show("Name중복!");
+                    MessageBox.Show("올바른 URL이 아닙니다.");
                 }
             }
+            UpdateListView();
         }
-
 
         private void Delete_Click(object sender, EventArgs e)
         {
-            string _StudyName = "";
-            if (InputBox("Register StudyName", "등록할 StudyName을 입력하세요", ref _StudyName) == DialogResult.OK)
+            string tmp = "";
+            if(InputBox("DelUrl","삭제시킬 url을 입력하세요",ref tmp) == DialogResult.OK)
             {
-                if (StudyManager.SubjectDelete(_StudyName) == true)
+                MonitorManager mm = SingleTon.MonitorManagerInstance();
+                if (mm.FindUrl(tmp) == true)
                 {
+                    mm.DelUrl(tmp);
                     UpdateListView();
-                    MessageBox.Show("삭제완료");
                 }
                 else
                 {
-                    MessageBox.Show("입력하신 Study가 없음");
+                    MessageBox.Show("입력하신 url은 등록된게 아닙니다.");
                 }
             }
         }
