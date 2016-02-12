@@ -121,16 +121,7 @@ namespace StudyAid
         private void MonitorStat_CheckedChanged(object sender, EventArgs e)
         {
             // everytime you click the button checkbox states will change.
-            if(MonitorStat.Text.Equals("모니터링 꺼짐"))
-            {
-                MessageBox.Show("모니터링 킴");
-                MonitorStat.Text = "모니터링 동작중";
-            }
-            else
-            {
-                MessageBox.Show("모니터링 끔");
-                MonitorStat.Text = "모니터링 꺼짐";
-            }
+            MessageBox.Show("미개발.. 언제 개발할까");
         }
 
         private void infoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -149,7 +140,11 @@ namespace StudyAid
 
         private void 시작ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CheckInstanceStudyManager();
+            if (CheckInstanceStudyManager() == false)
+            {
+                MessageBox.Show("블로그 등록해야함");
+                return;
+            }
             SettingTime st = new SettingTime() ;
             if(st.ShowDialog() == DialogResult.OK)
             {
@@ -214,12 +209,16 @@ namespace StudyAid
 
         private void study설정ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CheckInstanceStudyManager();
+            if (CheckInstanceStudyManager() == false)
+            {
+                MessageBox.Show("블로그 등록해야함");
+                return;
+            }
             StudyListForm st = new StudyListForm();
             st.Show();
         }
 
-        private void LoadBlogInfo()
+        private Boolean LoadBlogInfo()
         {
             string configPath = Environment.CurrentDirectory + "\\config.xml";
             XElement config = null;
@@ -243,7 +242,7 @@ namespace StudyAid
                 }
                 else
                 {
-                    return;
+                    return false;
                 }
             }
             config = XElement.Load(configPath);
@@ -252,27 +251,40 @@ namespace StudyAid
             blog.id = config.Element("id").Value;
             blog.pw = config.Element("pw").Value;
             blog.postid = config.Element("postid").Value;
+            return true;
         }
 
-        private void CheckInstanceStudyManager()
+        private Boolean CheckInstanceStudyManager()
         {
             if (SingleTon.StudyManagerInstance() == null)
             {
-                LoadBlogInfo();
+                if (LoadBlogInfo() == false)
+                {
+                    return false;
+                }
             }
             Smanager = SingleTon.StudyManagerInstance(blog.blogUrl, blog.blogid, blog.id, blog.pw, blog.postid);
+            return true;
         }
 
         private void 불러오기ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CheckInstanceStudyManager();
+            if (CheckInstanceStudyManager() == false)
+            {
+                MessageBox.Show("블로그 등록해야함");
+                return;
+            }
             Smanager.GetXmlFromPost();
             MessageBox.Show("불러오기 성공");
         }
 
         private void 보내기ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CheckInstanceStudyManager();
+            if (CheckInstanceStudyManager() == false)
+            {
+                MessageBox.Show("블로그 등록해야함");
+                return;
+            }
             Smanager.SaveXmlToPost();
             MessageBox.Show("포스팅(저장) 성공");
         }

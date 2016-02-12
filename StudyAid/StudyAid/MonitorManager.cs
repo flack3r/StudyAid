@@ -86,5 +86,15 @@ namespace StudyAid
             UrlToXml.Save(configPath);
         }
 
+        public void MonitoringStart()
+        {
+
+        }
+
+        public void MonitoringStop()
+        {
+
+        }
+
     }
 }
